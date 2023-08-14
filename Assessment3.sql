@@ -41,6 +41,20 @@ insert into Products values(101,10,55000.90,10.0)
 insert into Products values(102,11,35000.90,20.0)
 insert into Products values(103,12,15000.90,30.0)
 insert into Products values(104,13,13500.90,40.0)
+
+create function CalculateDiscount
+(
+@price float,
+@discountPercentage float
+)
+returns float
+as
+begin
+declare @discountedValue float
+set @discountedValue = @price - (@price * (@discountPercentage / 100.0))
+return @discountedValue
+end
+
  
 select PId,PQ,PPrice,Discount, PPrice * PQ as TotalPrice, PPrice * PQ - (PPrice * PQ * Discount / 100) as PriceAfterDiscount from Products;
 
